@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.codex/
+.agents/
+.tools/
+vite-serve*.log
+
+backend/.env
+backend/vendor/
+backend/database/*.sqlite
+backend/storage/logs/*.log
+backend/bootstrap/cache/*.php
+
+!.env.example
+!backend/.env.example
