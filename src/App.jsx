@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AboutSection } from './components/AboutSection.jsx'
+import { BlogDetailPage } from './components/BlogDetailPage.jsx'
 import { BlogSection } from './components/BlogSection.jsx'
 import { ContactSection } from './components/ContactSection.jsx'
 import { ExperienceSection } from './components/ExperienceSection.jsx'
@@ -27,7 +28,9 @@ function App() {
   const experiences = portfolio.experiences.map((item) => ({ ...item, period: item.period[language], title: item.title[language], description: item.description[language] }))
   const skills = portfolio.skillGroups.map((group) => ({ ...group, title: typeof group.title === 'string' ? group.title : group.title[language] }))
   const projectMatch = currentPath.match(/^\/projects\/([^/]+)$/)
+  const blogMatch = currentPath.match(/^\/blog\/([^/]+)$/)
   const selectedProject = projectMatch ? portfolio.projects.find((project) => String(project.id) === projectMatch[1]) : null
+  const selectedPost = blogMatch ? portfolio.posts.find((post) => post.slug === blogMatch[1]) : null
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -56,6 +59,12 @@ function App() {
     window.requestAnimationFrame(() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }))
   }
 
+  const goBlog = () => {
+    window.history.pushState({}, '', '/')
+    setCurrentPath('/')
+    window.requestAnimationFrame(() => document.querySelector('#blog')?.scrollIntoView({ behavior: 'smooth' }))
+  }
+
   return (
     <>
       <MouseFollower />
@@ -73,7 +82,9 @@ function App() {
         onToggleMenu={() => setMenuOpen((open) => !open)}
       />
 
-      {projectMatch ? (
+      {blogMatch ? (
+        <BlogDetailPage post={selectedPost} posts={portfolio.posts} slug={blogMatch[1]} language={language} loading={portfolio.source === 'loading'} onBack={goBlog} />
+      ) : projectMatch ? (
         <ProjectDetailPage project={selectedProject} language={language} ui={ui} onBack={goHome} />
       ) : (
         <main id="main">

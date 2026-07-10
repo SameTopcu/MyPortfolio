@@ -17,7 +17,7 @@ function normalizePortfolio(data) {
       cv: mediaUrl(data.profile.cv),
     } : data.profile,
     projects: data.projects?.map((project) => ({ ...project, image: mediaUrl(project.image) })) ?? [],
-    posts: data.posts?.map((post) => ({ ...post, cover_image: mediaUrl(post.cover_image) })) ?? [],
+    posts: data.posts?.map((post) => ({ ...post, cover_image: mediaUrl(post.cover_image), card_icon: mediaUrl(post.card_icon) })) ?? [],
   }
 }
 

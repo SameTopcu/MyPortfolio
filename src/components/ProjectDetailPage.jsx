@@ -77,9 +77,6 @@ export function ProjectDetailPage({ project, language, ui, onBack }) {
         stackCount: 'Stack items',
         overview: 'Project overview',
         overviewTitle: 'What was built, why it matters, and which problem it targets?',
-        challengeTitle: 'Constraints and decision space',
-        challengeBody: 'The goal was not only to ship something that works. Readable data flow, sustainable structure, and clear user direction all needed to hold together.',
-        challengeBody: 'The goal was not only to ship something that works. Readable data flow, sustainable structure, and clear user direction all needed to hold together.',
         stackLabel: 'Technology layer',
         stackTitle: 'Technologies used',
         stackFallback: 'Technology details for this project will be expanded later.',
@@ -100,25 +97,10 @@ export function ProjectDetailPage({ project, language, ui, onBack }) {
         updatedValue: 'Ready for portfolio release',
       }
 
-  const metaItems = [
-    {
-      label: labels.stackCount,
-      value: stack.length ? String(stack.length).padStart(2, '0') : '00',
-      icon: Layers3,
-    },
-    {
-      label: labels.status,
-      value: project.live_url || project.github_url ? labels.statusReady : labels.statusPrivate,
-      icon: Orbit,
-    },
-    {
-      label: labels.links,
-      value: [project.github_url && labels.source, project.live_url && labels.live].filter(Boolean).join(' / ') || labels.statusPrivate,
-      icon: RadioTower,
-    },
-  ]
-
   const panelItems = [
+    { label: labels.stackCount, value: stack.length ? String(stack.length).padStart(2, '0') : '00', icon: Layers3 },
+    { label: labels.status, value: project.live_url || project.github_url ? labels.statusReady : labels.statusPrivate, icon: Orbit },
+    { label: labels.links, value: [project.github_url && labels.source, project.live_url && labels.live].filter(Boolean).join(' / ') || labels.statusPrivate, icon: RadioTower },
     { label: labels.panelDuration, value: localizedValue(detail.panel?.duration, language, labels.durationValue) },
     { label: labels.panelRole, value: localizedValue(detail.panel?.role, language, labels.roleValue) },
     { label: labels.panelVersion, value: localizedValue(detail.panel?.version, language, labels.versionValue) },
@@ -188,6 +170,7 @@ export function ProjectDetailPage({ project, language, ui, onBack }) {
             <dl className="project-detail-facts">
               {panelItems.map((item) => (
                 <div key={item.label}>
+                  {item.icon ? <dt className="project-detail-fact-icon"><item.icon size={14} /></dt> : null}
                   <dt>{item.label}</dt>
                   <dd>{item.value}</dd>
                 </div>

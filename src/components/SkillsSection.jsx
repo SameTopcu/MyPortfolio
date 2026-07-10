@@ -3,6 +3,7 @@ import { SectionHeading } from './SectionHeading.jsx'
 
 const skillIcons = { server: Server, database: Database, code: CodeXml, network: Network }
 
+
 export function SkillsSection({ t, skillGroups }) {
   return (
     <section className="section" id="skills" aria-labelledby="skills-title">
